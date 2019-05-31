@@ -34,7 +34,7 @@ class Property
     /**
      * @ORM\Column(type="integer")
      */
-    private $Surface;
+    private $surface;
 
     /**
      * @ORM\Column(type="integer")
@@ -128,12 +128,12 @@ class Property
 
     public function getSurface(): ?int
     {
-        return $this->Surface;
+        return $this->surface;
     }
 
-    public function setSurface(int $Surface): self
+    public function setSurface(int $surface): self
     {
-        $this->Surface = $Surface;
+        $this->surface = $surface;
 
         return $this;
     }
