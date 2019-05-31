@@ -1,0 +1,4 @@
+{
+    "symfony-vscode.detectCwd": false,
+    "symfony-vscode.phpPath": "docker-compose exec php /bin/sh -c 'cd /usr/src/app && /usr/bin/php \"$@\"' -- "
+}
