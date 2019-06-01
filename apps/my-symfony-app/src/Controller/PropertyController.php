@@ -32,23 +32,6 @@ class PropertyController extends AbstractController
      */
     public function index()
     {
-        // $property = new Property;
-        // $property->setTitle("Une maison")
-        //     ->setCity("Caen")
-        //     ->setDescription("C'est cool")
-        //     ->setSurface(60)
-        //     ->setRooms(3)
-        //     ->setBedrooms(1)
-        //     ->setFloor(1)
-        //     ->setPrice(200000)
-        //     ->setHeat(1)
-        //     ->setAdress("2 rue du test")
-        //     ->setPostalCode(14000);
-        // $this->em->persist($property);
-        // $this->em->flush();
-
-        // $property = $this->repository->findAllUnsold();
-        // $this->em->flush();
         return $this->render('property/index.html.twig', [
             'controller_name' => 'PropertyController',
             'current_menu' => "property"

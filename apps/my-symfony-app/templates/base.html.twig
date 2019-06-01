@@ -22,9 +22,18 @@
                     <li class="nav-item">
                         <a class="nav-link {% if current_menu is defined and current_menu ==  "property" %}active{% endif %}" href="{{ path("property.index") }}">Acheter<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if current_menu is defined and current_menu ==  "admin" %}active{% endif %}" href="{{ path("admin.index") }}">Administration<span class="sr-only">(current)</span></a>
-                    </li>
+                    {% if app.user is empty %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if current_menu is defined and current_menu ==  "login" %}active{% endif %}" href="{{ path("login") }}">Se connecter<span class="sr-only">(current)</span></a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if current_menu is defined and current_menu ==  "admin" %}active{% endif %}" href="{{ path("admin.index") }}">Administration<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("logout") }}">Se déconnecter<span class="sr-only">(current)</span></a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
