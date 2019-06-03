@@ -5,5 +5,16 @@
 {% block body %}
     <div class="container mt-4">
         <h1>voir tous nos biens</h1>
+        {{ include ("property/_formFilter.html.twig", {formFilter:formFilter}) }}
+        <div class="row flex">
+                {% for property in properties %}
+                <div class="col-md-4 mt-4">
+                    {% include "property/_property.html.twig" %}
+                </div>
+                {% endfor %}
+        </div>
+        <div class="pagination mt-4">
+            {{ knp_pagination_render(properties) }}
+        </div>
     </div>
 {% endblock %}

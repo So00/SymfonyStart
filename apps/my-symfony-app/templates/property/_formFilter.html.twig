@@ -1,0 +1,13 @@
+{{ form_start(formFilter) }}
+<div class="row">
+    <div class="col-md-6">{{ form_row(formFilter.surface) }}</div>
+    <div class="col-md-6">{{ form_row(formFilter.price) }}</div>
+</div>
+<div class="row">
+    <div class="col-md-4">{{ form_row(formFilter.rooms) }}</div>
+    <div class="col-md-4">{{ form_row(formFilter.bedrooms) }}</div>
+    <div class="col-md-4">{{ form_row(formFilter.postal_code) }}</div>
+</div>
+{{ form_widget(formFilter) }}
+<button class="btm btn-primary">{{ button|default('Filtrer') }}</button>
+{{ form_end(formFilter) }}

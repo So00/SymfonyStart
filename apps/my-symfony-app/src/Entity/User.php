@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, \Serializable
 {
+
+    const ROLE = ["ROLE_USER", "ROLE_ADMIN"];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,6 +29,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $roles;
 
     public function getId(): ?int
     {
@@ -62,7 +70,15 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return [SELF::ROLE[$this->roles]];
+    }
+
+
+    public function setRoles(int $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**
@@ -128,4 +144,5 @@ class User implements UserInterface, \Serializable
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
+
 }

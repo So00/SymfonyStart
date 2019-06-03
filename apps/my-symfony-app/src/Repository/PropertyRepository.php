@@ -6,6 +6,7 @@ use App\Entity\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
  * @method Property|null find($id, $lockMode = null, $lockVersion = null)
@@ -62,17 +63,29 @@ class PropertyRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Return the query unsold property
+     * @return Query Returns a query of Property unsold objects
+     */
+    
+    public function findAllUnsoldQuery() : Query
+    {
+        return $this->unsold()
+            ->orderBy('p.id', 'ASC')
+            ->getQuery();
+    }
     
     /**
      * Return the latest unsold property
      * @return Property[] Returns an array of Property objects
      */
-    
+
     public function findLatestUnsold() : Array
     {
         return $this->unsold()
         ->orderBy('p.id', 'DESC')
-        ->setMaxResults(10)
+        ->setMaxResults(4)
             ->getQuery()
             ->getResult();
         }
