@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FilterPropertiesRepository")
  */
 class FilterProperties
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -18,21 +21,25 @@ class FilterProperties
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min=20, max=800)
      */
     private $surface;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min=1,max=30)
      */
     private $rooms;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min=1,max=20)
      */
     private $bedrooms;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min=0,max=8000000000)
      */
     private $price;
 
@@ -40,6 +47,16 @@ class FilterProperties
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $postal_code;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $options;
+    
+    function __construct()
+    {
+        $this->options = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +119,18 @@ class FilterProperties
     public function setPostalCode(?string $postal_code): self
     {
         $this->postal_code = $postal_code;
+
+        return $this;
+    }
+
+    public function getOptions(): ?ArrayCollection
+    {
+        return $this->options;
+    }
+
+    public function setOptions(?int $options): self
+    {
+        $this->options = $options;
 
         return $this;
     }

@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Query;
+use App\Entity\FilterProperties;
 
 /**
  * @method Property|null find($id, $lockMode = null, $lockVersion = null)
@@ -69,11 +70,30 @@ class PropertyRepository extends ServiceEntityRepository
      * @return Query Returns a query of Property unsold objects
      */
     
-    public function findAllUnsoldQuery() : Query
+    public function findAllUnsoldQuery(FilterProperties $filter) : Query
     {
-        return $this->unsold()
-            ->orderBy('p.id', 'ASC')
-            ->getQuery();
+        $query =  $this->unsold()->orderBy('p.id', 'ASC');
+        
+        if ($filter->getPrice())
+            $query = $query->andWhere("p.price <= :maxPrice")->setParameter("maxPrice", $filter->getPrice());
+        if ($filter->getSurface())
+            $query = $query->andWhere("p.surface >= :minSurface")->setParameter("minSurface", $filter->getSurface());
+        if ($filter->getPostalCode())
+            $query = $query->andWhere("p.postal_code = :postal_code")->setParameter("postal_code", $filter->getPostalCode());
+        if ($filter->getRooms())
+            $query = $query->andWhere("p.rooms >= :minRooms")->setParameter("minRooms", $filter->getRooms());
+        if ($filter->getBedrooms())
+            $query = $query->andWhere("p.bedrooms >= :minBedrooms")->setParameter("minBedrooms", $filter->getBedrooms());
+        if ($filter->getOptions()->count() > 0)
+        {
+            $k = 0;
+            foreach ($filter->getOptions() as $option)
+            {
+                $query = $query->andWhere(":option$k MEMBER OF p.options")->setParameter("option$k", $option);
+                $k++;
+            }
+        }
+        return $query->getQuery();
     }
     
     /**

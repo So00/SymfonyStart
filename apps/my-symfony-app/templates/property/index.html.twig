@@ -5,7 +5,9 @@
 {% block body %}
     <div class="container mt-4">
         <h1>voir tous nos biens</h1>
-        {{ include ("property/_formFilter.html.twig", {formFilter:formFilter}) }}
+        <div class="jumbotron">
+            {{ include ("property/_formFilter.html.twig", {formFilter:formFilter}) }}
+        </div>
         <div class="row flex">
                 {% for property in properties %}
                 <div class="col-md-4 mt-4">

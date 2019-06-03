@@ -10,6 +10,7 @@ use App\Entity\Property as HomeProperty;
 use App\Form\PropertyType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\Options;
 
 class AdminController extends AbstractController
 {

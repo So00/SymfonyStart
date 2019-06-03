@@ -36,9 +36,12 @@ class PropertyController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request)
     {
-        $form = $this->createForm(FilterPropertiesType::class, new FilterProperties());
+        $filter = new FilterProperties;
+        $form = $this->createForm(FilterPropertiesType::class, $filter);
+        $form->handleRequest($request);
+
         $properties = $paginator->paginate(
-            $this->repository->findAllUnsoldQuery(),
+            $this->repository->findAllUnsoldQuery($filter),
             $request->query->getInt("page", 1),
             12
         );
